@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODREN QUIZ COUNDECTER - 4K Ultra-Premium Quiz Platform</title>
+  <meta name="description" content="State of the art 50 MCQ online test conductor featuring 8 subjects, 5 difficulty levels, 15-minute countdown, 50/50 hints, level leaderboards, and canvas certificate generation.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 4K Animated Interactive Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div id="app">
+    <!-- Header Navigation -->
+    <header class="app-header">
+      <div class="brand-logo" id="nav-dashboard">
+        <div class="logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="logo-title">MODREN QUIZ <span>COUNDECTER</span></div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" id="nav-leaderboard">
+          <i class="fa-solid fa-trophy"></i> Leaderboards
+        </button>
+
+        <a href="admin.html" target="_blank" class="btn btn-secondary" id="nav-admin" style="text-decoration: none; padding: 8px 16px; font-size: 0.85rem; border: 1px solid rgba(99,102,241,0.35); color: #a5b4fc; background: rgba(99,102,241,0.08); gap: 6px; display: inline-flex; align-items: center;">
+          <i class="fa-solid fa-user-shield"></i> Admin
+        </a>
+
+        <div class="user-profile-badge hidden" id="user-profile-badge">
+          <div class="user-avatar" id="header-avatar">U</div>
+          <div class="user-info">
+            <span class="user-email" id="header-user-email">candidate@quiz.org</span>
+            <span class="user-status"><i class="fa-solid fa-circle" style="font-size: 8px;"></i> Session Active</span>
+          </div>
+          <button class="btn btn-danger" id="btn-logout" style="padding: 4px 10px; font-size: 0.8rem; margin-left: 8px;">
+            Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Main Content Views Container -->
+    <main class="container">
+
+      <!-- View 1: Auth / Email Login Screen -->
+      <section class="view-section active" id="view-auth">
+        <div class="auth-wrapper">
+          <div class="auth-header">
+            <div class="logo-icon" style="margin: 0 auto 1.5rem; width: 60px; height: 60px; font-size: 2rem;">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2>Candidate Login</h2>
+            <p>Enter your details to initiate your 50 MCQ Examination Session.</p>
+          </div>
+
+          <form id="auth-form">
+            <div class="form-group">
+              <label for="login-name">Full Candidate Name</label>
+              <input type="text" id="login-name" class="input-control" placeholder="e.g. Muhammad Ali" required>
+            </div>
+
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" class="input-control" placeholder="e.g. candidate@example.com" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 1rem;">
+              Enter Quiz Arena <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- View 2: Dashboard Configurator -->
+      <section class="view-section" id="view-dashboard">
+        <div class="dashboard-header">
+          <h1>Select Exam <span class="gradient-text">Configuration</span></h1>
+          <p>Choose your subject specialty or take a mixed exam. Select your target difficulty level to challenge the leaderboard.</p>
+        </div>
+
+        <div class="config-grid">
+          <!-- Subject Selector Card -->
+          <div class="config-card">
+            <h3><i class="fa-solid fa-book-open" style="color: var(--accent-cyan);"></i> 1. Select Subject</h3>
+            <div class="subject-options">
+              <div class="subject-btn active" data-subject="ALL">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>ALL SUBJECTS</span>
+              </div>
+              <div class="subject-btn" data-subject="GK">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span>GK</span>
+              </div>
+              <div class="subject-btn" data-subject="ENGLISH">
+                <i class="fa-solid fa-language"></i>
+                <span>ENGLISH</span>
+              </div>
+              <div class="subject-btn" data-subject="URDU">
+                <i class="fa-solid fa-pen-nib"></i>
+                <span>URDU</span>
+              </div>
+              <div class="subject-btn" data-subject="SCIENCE">
+                <i class="fa-solid fa-flask"></i>
+                <span>SCIENCE</span>
+              </div>
+              <div class="subject-btn" data-subject="SST">
+                <i class="fa-solid fa-landmark"></i>
+                <span>SST</span>
+              </div>
+              <div class="subject-btn" data-subject="MATH">
+                <i class="fa-solid fa-calculator"></i>
+                <span>MATH</span>
+              </div>
+              <div class="subject-btn" data-subject="PST">
+                <i class="fa-solid fa-flag"></i>
+                <span>PST</span>
+              </div>
+              <div class="subject-btn" data-subject="IQ">
+                <i class="fa-solid fa-brain"></i>
+                <span>IQ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Level Selector Card -->
+          <div class="config-card">
+            <h3><i class="fa-solid fa-gauge-high" style="color: var(--accent-gold);"></i> 2. Select Difficulty Level</h3>
+            <div class="level-options">
+              <div class="level-btn level-impossible" data-level="Impossible">
+                <div class="level-info">
+                  <div class="level-badge-dot"></div>
+                  <div>
+                    <div class="level-name">IMPOSSIBLE</div>
+                    <div class="level-desc">Elite challenges for master scholars</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-skull"></i>
+              </div>
+
+              <div class="level-btn level-expert" data-level="Expert">
+                <div class="level-info">
+                  <div class="level-badge-dot"></div>
+                  <div>
+                    <div class="level-name">EXPERT</div>
+                    <div class="level-desc">Advanced concepts & complex questions</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-crown"></i>
+              </div>
+
+              <div class="level-btn level-hard active" data-level="Hard">
+                <div class="level-info">
+                  <div class="level-badge-dot"></div>
+                  <div>
+                    <div class="level-name">HARD</div>
+                    <div class="level-desc">Rigorous test of thorough understanding</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-fire"></i>
+              </div>
+
+              <div class="level-btn level-medium" data-level="Medium">
+                <div class="level-info">
+                  <div class="level-badge-dot"></div>
+                  <div>
+                    <div class="level-name">MEDIUM</div>
+                    <div class="level-desc">Standard competitive exam difficulty</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+
+              <div class="level-btn level-easy" data-level="Easy">
+                <div class="level-info">
+                  <div class="level-badge-dot"></div>
+                  <div>
+                    <div class="level-name">EASY</div>
+                    <div class="level-desc">Fundamental baseline practice</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-leaf"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="start-quiz-banner">
+          <button class="btn btn-primary start-quiz-btn" id="btn-start-quiz">
+            <i class="fa-solid fa-play"></i> START 50-MCQ EXAM (15 MINS)
+          </button>
+        </div>
+      </section>
+
+      <!-- View 3: 4K Quiz Arena -->
+      <section class="view-section" id="view-quiz">
+        <div class="quiz-arena">
+          
+          <!-- Main Quiz Card -->
+          <div class="quiz-main-card">
+            <div>
+              <div class="quiz-arena-header">
+                <div class="quiz-tags">
+                  <span class="tag tag-subject" id="q-subject-tag">SUBJECT</span>
+                  <span class="tag tag-level" id="q-level-tag">LEVEL</span>
+                </div>
+
+                <div class="timer-box" id="timer-box">
+                  <i class="fa-regular fa-clock"></i>
+                  <span id="timer-display">15:00</span>
+                </div>
+              </div>
+
+              <div class="question-number-header">
+                <div class="q-num-text">Question <span id="q-current-num">1</span> of <span id="q-total-count">50</span></div>
+                <div class="hints-remaining-badge">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> 
+                  <span><span id="hints-remaining-count">5</span>/5 Hints Left</span>
+                </div>
+              </div>
+
+              <div class="question-text-wrapper">
+                <h2 class="question-text" id="question-text">Loading question text...</h2>
+              </div>
+
+              <div class="options-list" id="options-list">
+                <!-- Option items dynamically inserted -->
+              </div>
+            </div>
+
+            <div class="quiz-footer-controls">
+              <div style="display: flex; gap: 10px;">
+                <button class="btn btn-secondary" id="btn-prev-q">
+                  <i class="fa-solid fa-chevron-left"></i> Previous
+                </button>
+                <button class="btn btn-secondary" id="btn-flag">
+                  ☆ Mark Review
+                </button>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button class="btn btn-hint" id="btn-use-hint">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Use Hint (50/50)
+                </button>
+                <button class="btn btn-secondary" id="btn-next-q">
+                  Next <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <button class="btn btn-primary" id="btn-submit-exam">
+                  Submit Exam <i class="fa-solid fa-check"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Question Palette -->
+          <div class="sidebar-palette">
+            <div class="palette-title">
+              <span>Question Palette</span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">50 MCQs</span>
+            </div>
+
+            <div class="palette-grid" id="palette-grid">
+              <!-- 50 Grid Buttons generated dynamically -->
+            </div>
+
+            <div class="palette-legend">
+              <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan);"></div> Current Question</div>
+              <div class="legend-item"><div class="legend-dot" style="background: var(--accent-emerald);"></div> Answered</div>
+              <div class="legend-item"><div class="legend-dot" style="background: var(--accent-gold);"></div> Flagged for Review</div>
+              <div class="legend-item"><div class="legend-dot" style="background: var(--accent-pink);"></div> 50/50 Hint Used</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- View 4: Results & Score Analysis -->
+      <section class="view-section" id="view-results">
+        <div class="results-card">
+          <div class="result-badge-icon">
+            <i class="fa-solid fa-trophy" style="color: #ffe259;"></i>
+          </div>
+
+          <h2>EXAMINATION RESULTS</h2>
+          <div class="results-score-display gradient-text">
+            <span id="res-score-num">48</span> <span style="font-size: 2rem; color: var(--text-muted);">/ 50</span>
+          </div>
+          <div class="results-percentage" id="res-percentage">96% ACCURACY</div>
+
+          <div class="results-stats-grid">
+            <div class="stat-box">
+              <div class="stat-val" id="res-status">PASSED</div>
+              <div class="stat-lbl">Exam Status</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="res-rank">#1</div>
+              <div class="stat-lbl">Level Rank</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="res-time">12m 45s</div>
+              <div class="stat-lbl">Time Taken</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" style="color: var(--accent-gold);">60%</div>
+              <div class="stat-lbl">Passing Benchmark</div>
+            </div>
+          </div>
+
+          <div class="certificate-announce-box" id="cert-announce-box">
+            <div class="announce-title"><i class="fa-solid fa-award"></i> Certificate Unlocked!</div>
+            <div class="announce-desc" id="cert-announce-desc">
+              You just passed Hard level with top 1 position! Your official certificate of completion is ready.
+            </div>
+            <button class="btn btn-gold" id="btn-view-certificate">
+              <i class="fa-solid fa-certificate"></i> View / Download Official Certificate
+            </button>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: 16px;">
+            <button class="btn btn-secondary" id="btn-results-leaderboard">
+              <i class="fa-solid fa-list-ol"></i> View Level Leaderboard
+            </button>
+            <button class="btn btn-primary" id="btn-retake-quiz">
+              <i class="fa-solid fa-rotate-right"></i> Take Another Test
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- View 5: Level-Specific Leaderboards -->
+      <section class="view-section" id="view-leaderboard">
+        <div class="leaderboard-header">
+          <h1>Level <span class="gradient-text">Leaderboards</span></h1>
+          <p>Every level maintains an independent, real-time leaderboard of candidate achievements.</p>
+        </div>
+
+        <div class="leaderboard-tabs">
+          <div class="lb-tab" data-level="Impossible">IMPOSSIBLE</div>
+          <div class="lb-tab" data-level="Expert">EXPERT</div>
+          <div class="lb-tab active" data-level="Hard">HARD</div>
+          <div class="lb-tab" data-level="Medium">MEDIUM</div>
+          <div class="lb-tab" data-level="Easy">EASY</div>
+        </div>
+
+        <div class="leaderboard-table-card">
+          <div style="margin-bottom: 1rem; font-weight: 700; color: var(--accent-gold);">
+            TOP CANDIDATES - <span id="lb-current-level-title">HARD</span> LEVEL
+          </div>
+          <table class="lb-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Candidate Name / Email</th>
+                <th>Score & Accuracy</th>
+                <th>Time Spent</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="lb-table-body">
+              <!-- Rows inserted dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Certificate Overlay Modal -->
+  <div class="modal-overlay" id="cert-modal">
+    <div class="certificate-modal-content">
+      <button class="modal-close-btn" id="btn-close-cert">&times;</button>
+      
+      <h2 style="margin-bottom: 8px;">Official Certificate of Achievement</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">Issued by Modern Quiz Conductor Accreditation Board</p>
+
+      <div class="certificate-canvas-container">
+        <canvas id="cert-canvas"></canvas>
+      </div>
+
+      <div class="cert-actions">
+        <button class="btn btn-gold" id="btn-download-cert">
+          <i class="fa-solid fa-download"></i> Download Certificate (HD PNG)
+        </button>
+        <button class="btn btn-secondary" onclick="window.print()">
+          <i class="fa-solid fa-print"></i> Print Certificate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Modules -->
+  <script src="js/api.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/quizEngine.js"></script>
+  <script src="js/leaderboard.js"></script>
+  <script src="js/certificate.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
